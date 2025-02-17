@@ -10,18 +10,15 @@ export default function DashboardPage() {
   useEffect(() => {
     const isAuthenticated = Cookies.get('isAuthenticated');
     if (!isAuthenticated) {
-      router.push("/login");
+      router.replace("/login");
+    } else {
+      router.replace("/dashboard/users");
     }
   }, [router]);
 
-  const handleLogout = () => {
-    Cookies.remove('isAuthenticated');
-    router.push("/login");
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold">Hello World</h1>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-pulse">Redirecting...</div>
     </div>
   );
 }

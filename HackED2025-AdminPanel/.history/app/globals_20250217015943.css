@@ -116,16 +116,14 @@
 
 @layer components {
 	.glow-container {
-		@apply relative rounded-lg border border-[#2A2A2A];
+		@apply relative rounded-lg border border-[#2A2A2A] bg-background;
 	}
 
 	.glow-container::before {
 		content: "";
-		@apply absolute -inset-[3px] rounded-lg;
-		background: linear-gradient(90deg, #22c55e 0%, #16a34a 50%, #22c55e 100%);
+		@apply absolute -inset-[3px] rounded-lg bg-gradient-to-r from-green-500/50 to-green-700/50 -z-10;
 		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 		filter: blur(8px);
-		z-index: -1;
 	}
 
 	@keyframes pulse {
