@@ -6,11 +6,10 @@ export async function GET(request: Request) {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				"Cache-Control": "no-cache, no-store, must-revalidate",
+				"Cache-Control": "no-cache",
 				Pragma: "no-cache",
-				Expires: "0",
 			},
-			cache: "no-store",
+			next: { revalidate: 0 },
 		});
 
 		if (!response.ok) {
@@ -18,27 +17,12 @@ export async function GET(request: Request) {
 		}
 
 		const data = await response.json();
-
-		// Add cache control headers to the response
-		return new NextResponse(JSON.stringify(data), {
-			headers: {
-				"Cache-Control": "no-cache, no-store, must-revalidate",
-				Pragma: "no-cache",
-				Expires: "0",
-			},
-		});
+		return NextResponse.json(data);
 	} catch (error) {
 		console.error("Proxy error:", error);
 		return NextResponse.json(
 			{ success: false, error: "Failed to fetch transactions" },
-			{
-				status: 500,
-				headers: {
-					"Cache-Control": "no-cache, no-store, must-revalidate",
-					Pragma: "no-cache",
-					Expires: "0",
-				},
-			}
+			{ status: 500 }
 		);
 	}
 }
